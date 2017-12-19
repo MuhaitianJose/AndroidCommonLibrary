@@ -50,9 +50,9 @@ public abstract class BaseRequest<T> implements IExcutor {
 
     }
 
-    protected abstract String buildGetUrl();
+    protected abstract String buildGetUrl(String url,HashMap<String,Object> params);
 
-    protected abstract String buildPostUrl();
+    protected abstract String buildPostUrl(String url);
 
     protected abstract String buildDeleteUrl();
 
@@ -74,7 +74,7 @@ public abstract class BaseRequest<T> implements IExcutor {
     public void post() {
         Request request;
         Builder builder = getBuilder();
-        request = builder.url(buildPostUrl()).post(geterateBody(mBuilder.getParams())).build();
+        request = builder.url(buildPostUrl(mBuilder.getBaseUrl())).post(geterateBody(mBuilder.getParams())).build();
         execute(request);
 
     }
@@ -83,7 +83,7 @@ public abstract class BaseRequest<T> implements IExcutor {
     public void get() {
         Request request;
         Builder builder = getBuilder();
-        request = builder.url(buildPostUrl()).build();
+        request = builder.url(buildGetUrl(mBuilder.getBaseUrl(),mBuilder.getParams())).build();
         execute(request);
     }
 

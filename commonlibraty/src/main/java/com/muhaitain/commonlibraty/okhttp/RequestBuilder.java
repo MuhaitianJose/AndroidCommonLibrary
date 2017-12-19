@@ -29,6 +29,10 @@ public class RequestBuilder<T> {
         return this;
     }
 
+    public String getBaseUrl(){
+        return this.baseUrl;
+    }
+
     public RequestBuilder<T> addHeader(String key, Object params) {
         if (headers == null) {
             headers = new HashMap<>();
@@ -70,6 +74,10 @@ public class RequestBuilder<T> {
 
     public INetCallBack<T> getINetCallBack(){
         return iNetCallBack;
+    }
+
+    public CustomRequest<T> build(){
+        return new CustomRequest<T>(this);
     }
 
 
