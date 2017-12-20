@@ -11,7 +11,6 @@ import okhttp3.OkHttpClient;
 public class OkhttpUtils {
 
     private static OkHttpClient okHttpClient;
-
     public static void initClient() {
         if (okHttpClient == null) {
             synchronized (OkhttpUtils.class) {

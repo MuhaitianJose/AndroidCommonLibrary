@@ -27,7 +27,7 @@ public abstract class BaseRequest<T> implements IExcutor {
     private INetCallBack<T> iNetCallBack;
     private Call okHttpCall;
 
-    public BaseRequest(RequestBuilder<T> mBuilder) {
+    protected BaseRequest(RequestBuilder<T> mBuilder) {
         this.mBuilder = mBuilder;
         iNetCallBack = mBuilder.getINetCallBack();
     }
@@ -97,14 +97,14 @@ public abstract class BaseRequest<T> implements IExcutor {
 
     }
 
-    protected void execute(final Request request) {
+    private void execute(final Request request) {
 
 
         okHttpCall = OkhttpUtils.getOkHttpClient().newCall(request);
         okHttpCall.enqueue(new OkHttpCallBack<>(iNetCallBack));
     }
 
-    protected RequestBody geterateBody(HashMap<String, Object> params) {
+    private RequestBody geterateBody(HashMap<String, Object> params) {
         FormBody.Builder builder = new FormBody.Builder();
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             String key = entry.getKey();

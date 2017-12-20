@@ -1,7 +1,5 @@
 package com.muhaitain.commonlibraty.okhttp;
 
-import com.hwangjr.rxbus.annotation.Subscribe;
-
 import rx.Subscriber;
 
 /**

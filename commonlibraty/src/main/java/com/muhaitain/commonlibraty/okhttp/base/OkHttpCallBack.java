@@ -1,5 +1,7 @@
 package com.muhaitain.commonlibraty.okhttp.base;
 
+import android.support.annotation.NonNull;
+
 import com.muhaitain.commonlibraty.okhttp.Rxhandler;
 import com.muhaitain.commonlibraty.okhttp.bean.ServerTips;
 import com.muhaitain.commonlibraty.okhttp.constant.NetErrorCode;
@@ -10,9 +12,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import rx.Observable;
-import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Muhaitian on 2017/12/18.
@@ -26,12 +26,12 @@ public class OkHttpCallBack<T> implements Callback {
     }
 
     @Override
-    public void onFailure(Call call, IOException e) {
+    public void onFailure(@NonNull Call call, @SuppressWarnings("NullableProblems") IOException e) {
         onNetFailure(NetErrorCode.NET_ERROR_EXCEPTION, "请求异常");
     }
 
     @Override
-    public void onResponse(Call call, Response response) throws IOException {
+    public void onResponse(@SuppressWarnings("NullableProblems") Call call, @SuppressWarnings("NullableProblems") Response response) throws IOException {
         if (response == null) {
             onNetFailure(NetErrorCode.NET_ERROR_NULL_RESPONE, "数据返回为空");
         }

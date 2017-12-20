@@ -14,8 +14,7 @@ public class JsonUtils {
 
     public static String toJSONString(Object object) {
         try {
-            String json = JSON.toJSONString(object);
-            return json;
+            return JSON.toJSONString(object);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,8 +41,7 @@ public class JsonUtils {
 
     public static <T> T parseObject(String content, Class<T> clazz) {
         try {
-            T result = JSON.parseObject(content, clazz);
-            return result;
+            return JSON.parseObject(content, clazz);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,10 +50,10 @@ public class JsonUtils {
 
     public static <T> T parseObject(String content, Type clazz) {
         try {
-            T result = JSON.parseObject(content, clazz);
-            return result;
+            return JSON.parseObject(content, clazz);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
