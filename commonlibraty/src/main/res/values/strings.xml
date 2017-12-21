@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CommonLibraty</string>
+    <string name="activity_base_content_tips">请自定义布局</string>
 </resources>
