@@ -1,2 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.muhaitain.commonlibraty" />
+    package="com.muhaitain.commonlibraty">
+    <application>
+        <meta-data android:name="com.muhaitain.commonlibraty.glide.CommonGlideModule"
+            android:value="GlideModule"/>
+    </application>
+</manifest>
