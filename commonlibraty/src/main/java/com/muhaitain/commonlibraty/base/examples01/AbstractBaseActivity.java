@@ -31,9 +31,9 @@ public abstract class AbstractBaseActivity<T extends BasePresenter> extends Abst
     }
 
     private void initViewSub() {
-        vsBaseTitle = findViewById(R.id.vs_base_title);
-        vsBaseContent = findViewById(R.id.vs_base_content);
-        vsBaseNetwork = findViewById(R.id.vs_base_network);
+        vsBaseTitle = (ViewStub) findViewById(R.id.vs_base_title);
+        vsBaseContent = (ViewStub) findViewById(R.id.vs_base_content);
+        vsBaseNetwork = (ViewStub) findViewById(R.id.vs_base_network);
 
         int titleId = getTitleLayout();
         int contentId = getContentLayout();

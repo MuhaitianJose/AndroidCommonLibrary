@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.DecodeFormat;
@@ -27,13 +28,37 @@ import java.io.File;
  */
 
 public class RequestOptionConfig {
+    private static final String TAG = RequestOptionConfig.class.getSimpleName();
     private RequestOptions mRequestOptions;
     private Context context;
 
     public RequestOptionConfig(Context context) {
         this.context = context;
         this.mRequestOptions = new RequestOptions();
+    }
 
+    /**
+     * 裁剪图片尺寸，宽高相同
+     *
+     * @param size
+     * @return
+     */
+    public RequestOptionConfig reSize(int size) {
+        this.reSize(size, size);
+        return this;
+    }
+
+    /**
+     * 裁剪图片尺寸，自定义宽高
+     *
+     * @param width
+     * @param height
+     * @return
+     */
+    public RequestOptionConfig reSize(int width, int height) {
+        Log.d(TAG, "reSize: "+width);
+        mRequestOptions.override(width, height);
+        return this;
     }
 
     /**
@@ -116,9 +141,11 @@ public class RequestOptionConfig {
      */
     public void showByResource(int imageId, ImageView imageView) {
         if (imageId <= 0) {
-            GlideLoader.getLoader(context).load(imageId).apply(mRequestOptions).into(imageView);
-        } else {
             throw new LoadException("imageId is error!");
+        } else {
+
+            GlideLoader.getLoader(context).load(imageId).apply(mRequestOptions).into(imageView);
+
         }
     }
 
@@ -156,6 +183,7 @@ public class RequestOptionConfig {
                         }
                     }
                 });
+
     }
 
     public void asDrawable(String url, final ILoadCallback<Drawable> loadCallback) {
