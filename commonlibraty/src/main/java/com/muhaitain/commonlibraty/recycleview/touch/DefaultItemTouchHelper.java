@@ -9,7 +9,9 @@ import android.support.v7.widget.helper.CompatItemTouchHelper;
 
 public class DefaultItemTouchHelper extends CompatItemTouchHelper {
 
-    public DefaultItemTouchHelper(){
+    private DefaultItemTouchHelperCallback mDefaultItemTouchHelperCallback;
+
+    public DefaultItemTouchHelper() {
         this(new DefaultItemTouchHelperCallback());
     }
 
@@ -24,5 +26,49 @@ public class DefaultItemTouchHelper extends CompatItemTouchHelper {
      */
     public DefaultItemTouchHelper(DefaultItemTouchHelperCallback callback) {
         super(callback);
+        mDefaultItemTouchHelperCallback = (DefaultItemTouchHelperCallback) getCallback();
     }
+
+    public void setOnItemMoveListener(OnItemMoveListener onItemMoveListener) {
+        mDefaultItemTouchHelperCallback.setOnItemMoveListener(onItemMoveListener);
+    }
+
+    public OnItemMoveListener getOnItemMoveListener() {
+        return mDefaultItemTouchHelperCallback.getOnItemMoveListener();
+    }
+
+    public void setOnItemMovementListener(OnItemMovementListener onItemMovementListener) {
+        mDefaultItemTouchHelperCallback.setOnItemMovementListener(onItemMovementListener);
+    }
+
+    public OnItemMovementListener getOnItemMovementListener() {
+        return mDefaultItemTouchHelperCallback.getOnItemMovementListener();
+    }
+
+    public void setOnStateChangeListener(OnItemStateChangedListener onStateChangeListener) {
+        mDefaultItemTouchHelperCallback.setOnItemStateChangedListener(onStateChangeListener);
+    }
+
+    public OnItemStateChangedListener getOnIemStateChangeListener() {
+        return mDefaultItemTouchHelperCallback.getOnItemStateChangedListener();
+    }
+
+    public void setLongPressDragEnabled(boolean canDrag) {
+        mDefaultItemTouchHelperCallback.setLongPressDragEnabled(canDrag);
+    }
+
+    public boolean isLongPressDragEnabled() {
+        return mDefaultItemTouchHelperCallback.isLongPressDragEnabled();
+    }
+
+    public void setItemViewSwipeEnabled(boolean canSwipe) {
+        mDefaultItemTouchHelperCallback.setItemViewSwipeEnabled(canSwipe);
+    }
+
+    public boolean isItemViewSwipeEnabled() {
+        return mDefaultItemTouchHelperCallback.isItemViewSwipeEnabled();
+
+    }
+
+
 }
