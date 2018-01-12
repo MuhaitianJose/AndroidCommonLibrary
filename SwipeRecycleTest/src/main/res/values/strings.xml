@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SwipeRecycleTest</string>
+    <string-array name="main_item">
+        <item>左面菜单</item>
+        <item>右边菜单</item>
+        <item>左右菜单</item>
+        <item>垂直菜单</item>
+        <item>加载刷新功能</item>
+        <item>网格形式菜单</item>
+    </string-array>
+</resources>

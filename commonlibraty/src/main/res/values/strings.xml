@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">CommonLibraty</string>
+    <string name="recycler_swipe_load_more">Loading, please wait later</string>
     <string name="activity_base_content_tips">请自定义布局</string>
+    <string name="recycler_swipe_more_not">There is no data</string>
+    <string name="recycler_swipe_click_load_more">点击加载更多</string>
+    <string name="recycler_swipe_load_error">Error, please try again</string>
+
 </resources>

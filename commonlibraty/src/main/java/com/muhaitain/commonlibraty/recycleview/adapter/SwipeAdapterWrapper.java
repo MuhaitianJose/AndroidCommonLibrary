@@ -1,5 +1,6 @@
-package com.muhaitain.commonlibraty.recycleview.widget;
+package com.muhaitain.commonlibraty.recycleview.adapter;
 
+import android.content.Context;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -9,6 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.muhaitain.commonlibraty.R;
+import com.muhaitain.commonlibraty.recycleview.widget.SwipeItemClickListener;
+import com.muhaitain.commonlibraty.recycleview.widget.SwipeMenu;
+import com.muhaitain.commonlibraty.recycleview.widget.SwipeMenuCreator;
+import com.muhaitain.commonlibraty.recycleview.widget.SwipeMenuItemClickListener;
+import com.muhaitain.commonlibraty.recycleview.widget.SwipeMenuLayout;
+import com.muhaitain.commonlibraty.recycleview.widget.SwipeMenuRecyclerView;
+import com.muhaitain.commonlibraty.recycleview.widget.SwipeMenuView;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -31,24 +39,24 @@ public class SwipeAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
     private SwipeMenuItemClickListener mSwipeMenuItemClickListener;
     private SwipeItemClickListener mSwipeItemClickListener;
 
-    public SwipeAdapterWrapper(RecyclerView.Adapter mAdapter, LayoutInflater mInflater) {
+    public SwipeAdapterWrapper(Context context,RecyclerView.Adapter mAdapter) {
         this.mAdapter = mAdapter;
-        this.mInflater = mInflater;
+        this.mInflater = LayoutInflater.from(context);
     }
 
     public RecyclerView.Adapter getOriginAdapter() {
         return mAdapter;
     }
 
-    void setSwipeMenuCreator(SwipeMenuCreator swipeMenuCreator) {
+    public void setSwipeMenuCreator(SwipeMenuCreator swipeMenuCreator) {
         this.mSwipeMenuCreator = swipeMenuCreator;
     }
 
-    void setSwipeMenuItemClickListener(SwipeMenuItemClickListener menuItemClickListener) {
+    public void setSwipeMenuItemClickListener(SwipeMenuItemClickListener menuItemClickListener) {
         this.mSwipeMenuItemClickListener = menuItemClickListener;
     }
 
-    void setSwipeItemClickListener(SwipeItemClickListener swipeItemClickListener) {
+    public void setSwipeItemClickListener(SwipeItemClickListener swipeItemClickListener) {
         this.mSwipeItemClickListener = swipeItemClickListener;
     }
 
@@ -226,6 +234,12 @@ public class SwipeAdapterWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
     public void addFooterViewAndNotify(View view) {
         mFootViews.put(getFooterItemCount() + BASE_ITEM_TYPE_FOOTER, view);
         notifyItemInserted(getHeaderItemCount() + getContentItemCount() + getFooterItemCount());
+    }
+
+    public void removeFooterViewAndNotify(View view){
+        int footerIndex = mFootViews.indexOfValue(view);
+        mFootViews.removeAt(footerIndex);
+        notifyItemRemoved(getHeaderItemCount()+getContentItemCount()+footerIndex);
     }
 
     @Override

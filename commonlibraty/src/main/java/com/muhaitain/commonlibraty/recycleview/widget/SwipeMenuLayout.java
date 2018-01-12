@@ -54,11 +54,11 @@ public class SwipeMenuLayout extends FrameLayout implements SwipeSwitch {
 
 
     public SwipeMenuLayout(@NonNull Context context) {
-        super(context);
+        this(context,null);
     }
 
     public SwipeMenuLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,0);
     }
 
     public SwipeMenuLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -79,7 +79,7 @@ public class SwipeMenuLayout extends FrameLayout implements SwipeSwitch {
     protected void onFinishInflate() {
         super.onFinishInflate();
         if (mLeftViewId != 0 && mSwipeLeftHorizontal == null) {
-            View view = findViewWithTag(mLeftViewId);
+            View view = findViewById(mLeftViewId);
             mSwipeLeftHorizontal = new SwipeLeftHorizontal(view);
         }
 
@@ -122,8 +122,11 @@ public class SwipeMenuLayout extends FrameLayout implements SwipeSwitch {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+
         boolean isIntercepted = super.onInterceptTouchEvent(ev);
         int action = ev.getAction();
+//        Log.d(TAG, "onInterceptTouchEvent: isIntercepted="+isIntercepted);
+//        Log.d(TAG, "onInterceptTouchEvent: action="+action);
         switch (action) {
             case MotionEvent.ACTION_DOWN: {
                 mDownX = mLastX = (int) ev.getX();
@@ -134,6 +137,7 @@ public class SwipeMenuLayout extends FrameLayout implements SwipeSwitch {
                 int disX = (int) (ev.getX() - mDownX);
                 int disY = (int) (ev.getY() - mDownY);
                 boolean result = Math.abs(disX) > mScaledTouchSlop && Math.abs(disX) > Math.abs(disY);
+
                 return result;
             }
 
@@ -159,6 +163,7 @@ public class SwipeMenuLayout extends FrameLayout implements SwipeSwitch {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+//        Log.d(TAG, "onTouchEvent: ");
         if (mVelocityTracker == null) mVelocityTracker = VelocityTracker.obtain();
         mVelocityTracker.addMovement(event);
         int dx;
@@ -321,7 +326,7 @@ public class SwipeMenuLayout extends FrameLayout implements SwipeSwitch {
 
     @Override
     public void computeScroll() {
-        Log.d(TAG, "computeScroll: ");
+
         if (mScroller.computeScrollOffset() && mSwipeCurrentHorizontal != null) {
             if (mSwipeCurrentHorizontal instanceof SwipeRightHorizontal) {
                 scrollTo(Math.abs(mScroller.getCurrX()), 0);
@@ -445,10 +450,15 @@ public class SwipeMenuLayout extends FrameLayout implements SwipeSwitch {
         }
     }
 
+    /**
+     *
+     * @param duration
+     */
     @Override
     public void smoothCloseMenu(int duration) {
         if (mSwipeCurrentHorizontal != null) {
             mSwipeCurrentHorizontal.autoCloseMenu(mScroller, getScrollX(), duration);
+            invalidate();
         }
     }
 

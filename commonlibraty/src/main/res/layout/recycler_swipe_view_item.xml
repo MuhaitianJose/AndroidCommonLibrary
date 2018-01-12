@@ -23,17 +23,17 @@
     swipe:rightViewId="@+id/swipe_right">
 
     <com.muhaitain.commonlibraty.recycleview.widget.SwipeMenuView
-        android:id="@id/swipe_left"
+        android:id="@+id/swipe_left"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
 
     <FrameLayout
-        android:id="@id/swipe_content"
+        android:id="@+id/swipe_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <com.muhaitain.commonlibraty.recycleview.widget.SwipeMenuView
-        android:id="@id/swipe_right"
+        android:id="@+id/swipe_right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
 

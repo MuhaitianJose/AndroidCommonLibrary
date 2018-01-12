@@ -22,6 +22,8 @@ public class SwipeMenuBridge {
     private final View mViewRoot;
 
     int mAdapterPosition;
+
+    String MenuDescribe;
     TextView mTextView;
     ImageView mImageView;
 
@@ -87,5 +89,13 @@ public class SwipeMenuBridge {
 
     public void closeMenu() {
         mSwipeSwitch.smoothCloseMenu();
+    }
+
+    public String getMenuDescribe() {
+        return MenuDescribe;
+    }
+
+    public void setMenuDescribe(String menuDescribe) {
+        MenuDescribe = menuDescribe;
     }
 }

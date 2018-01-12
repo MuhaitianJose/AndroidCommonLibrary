@@ -1,5 +1,6 @@
 package com.muhaitain.commonlibraty.recycleview.widget;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.OverScroller;
 
@@ -8,13 +9,16 @@ import android.widget.OverScroller;
  */
 
 public class SwipeRightHorizontal extends SwipeHorizontal {
+
+    private static final String TAG = SwipeRightHorizontal.class.getSimpleName();
+
     public SwipeRightHorizontal( View menuView) {
         super(SwipeMenuRecyclerView.RIGHT_DIRECTION, menuView);
     }
 
     @Override
     public boolean isMenuOpen(int scrollX) {
-        int i = getMenuView().getWidth()*getDirection();
+        int i = -getMenuView().getWidth()*getDirection();
         return scrollX>=i&&i!=0;
     }
 

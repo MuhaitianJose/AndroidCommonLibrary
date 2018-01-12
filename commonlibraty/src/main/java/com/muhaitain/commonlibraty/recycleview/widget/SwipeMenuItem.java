@@ -19,7 +19,7 @@ import android.support.v4.content.ContextCompat;
 public class SwipeMenuItem {
     private Context mContext;
     private Drawable background;
-    private Drawable icon;
+    private int icon;
     private String title;
     private ColorStateList titleColor;
     private int titleSize;
@@ -28,6 +28,8 @@ public class SwipeMenuItem {
     private int width = -2;
     private int height = -2;
     private int weight = 0;
+
+    private String MenuDescribe;
 
     public SwipeMenuItem(Context context) {
         mContext = context;
@@ -50,22 +52,20 @@ public class SwipeMenuItem {
         return textTypeface;
     }
 
-    public Drawable getIcon() {
+    public int getIcon() {
         return icon;
     }
 
     public SwipeMenuItem setImage(int resId) {
-        return setBackground(ContextCompat.getDrawable(mContext, resId));
-    }
-
-    public SwipeMenuItem setImage(Drawable icon) {
-        this.icon = icon;
+        this.icon = resId;
         return this;
     }
 
-    public Drawable getImage() {
-        return icon;
-    }
+//    public SwipeMenuItem setImage(Drawable icon) {
+//        this.icon = icon;
+//        return this;
+//    }
+
 
     public SwipeMenuItem setText(int resId) {
         return setText(mContext.getResources().getString(resId));
@@ -141,6 +141,15 @@ public class SwipeMenuItem {
 
     public void setTitleSize(int titleSize) {
         this.titleSize = titleSize;
+    }
+
+    public String getMenuDescribe() {
+        return MenuDescribe;
+    }
+
+    public SwipeMenuItem setMenuDescribe(String menuDescribe) {
+        MenuDescribe = menuDescribe;
+        return this;
     }
 }
 

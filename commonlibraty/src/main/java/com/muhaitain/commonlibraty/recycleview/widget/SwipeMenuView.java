@@ -21,7 +21,7 @@ import java.util.List;
  * Created by Muhaitian on 2018/1/4.
  */
 
-public class SwipeMenuView extends LinearLayout implements View.OnClickListener{
+public class SwipeMenuView extends LinearLayout implements View.OnClickListener {
 
     private static final String TAG = SwipeMenuView.class.getSimpleName();
     private RecyclerView.ViewHolder mAdatterViewHolder;
@@ -45,16 +45,16 @@ public class SwipeMenuView extends LinearLayout implements View.OnClickListener{
 
     public void createMenu(SwipeMenu swipeMenu, SwipeSwitch swipeSwitch,
                            SwipeMenuItemClickListener swipeMenuItemClickListener,
-                           @SwipeMenuRecyclerView.DirectionMode int direction){
+                           @SwipeMenuRecyclerView.DirectionMode int direction) {
         removeAllViews();
         this.mSwipeSwitch = swipeSwitch;
         this.mItemClickListener = swipeMenuItemClickListener;
         this.mDirection = direction;
         List<SwipeMenuItem> items = swipeMenu.getSwipeMenuItems();
-        for (int i=0;i<items.size();i++){
+        for (int i = 0; i < items.size(); i++) {
             SwipeMenuItem item = items.get(i);
 
-            LayoutParams params = new LayoutParams(item.getWidth(),item.getHeight());
+            LayoutParams params = new LayoutParams(item.getWidth(), item.getHeight());
             params.weight = item.getWeight();
 
             LinearLayout parent = new LinearLayout(getContext());
@@ -63,20 +63,20 @@ public class SwipeMenuView extends LinearLayout implements View.OnClickListener{
             parent.setOrientation(VERTICAL);
             parent.setLayoutParams(params);
 
-            ViewCompat.setBackground(parent,item.getBackground());
+            ViewCompat.setBackground(parent, item.getBackground());
             parent.setOnClickListener(this);
             addView(parent);
 
-            SwipeMenuBridge menuBridge = new SwipeMenuBridge(mDirection,i,mSwipeSwitch,parent);
+            SwipeMenuBridge menuBridge = new SwipeMenuBridge(mDirection, i, mSwipeSwitch, parent);
             parent.setTag(menuBridge);
-
-            if (item.getImage()!=null){
+            menuBridge.setMenuDescribe(item.getMenuDescribe());
+            if (item.getIcon() != 0) {
                 ImageView iv = createIcon(item);
                 menuBridge.mImageView = iv;
                 parent.addView(iv);
             }
 
-            if (!TextUtils.isEmpty(item.getTitle())){
+            if (!TextUtils.isEmpty(item.getTitle())) {
                 TextView tv = createTitle(item);
                 menuBridge.mTextView = tv;
 
@@ -86,34 +86,35 @@ public class SwipeMenuView extends LinearLayout implements View.OnClickListener{
         }
     }
 
-    public void bindViewHolder(RecyclerView.ViewHolder adapterViewHolder){
+    public void bindViewHolder(RecyclerView.ViewHolder adapterViewHolder) {
         this.mAdatterViewHolder = adapterViewHolder;
     }
 
-    private ImageView createIcon(SwipeMenuItem item){
+    private ImageView createIcon(SwipeMenuItem item) {
         ImageView imageView = new ImageView(getContext());
-        imageView.setImageDrawable(item.getImage());
+        imageView.setImageResource(item.getIcon());
         return imageView;
     }
 
-    private TextView createTitle(SwipeMenuItem item){
+    private TextView createTitle(SwipeMenuItem item) {
         TextView textView = new TextView(getContext());
         textView.setText(item.getTitle());
+        textView.setGravity(Gravity.CENTER);
         int textSize = item.getTitleSize();
-        if (textSize>0){
+        if (textSize > 0) {
             textView.setTextSize(textSize);
         }
 
         ColorStateList textColor = item.getTitleColor();
-        if (textColor!=null){
+        if (textColor != null) {
             textView.setTextColor(textColor);
         }
         int textAppearance = item.getTextAppearance();
-        if (textAppearance!=0){
-            TextViewCompat.setTextAppearance(textView,textAppearance);
+        if (textAppearance != 0) {
+            TextViewCompat.setTextAppearance(textView, textAppearance);
         }
         Typeface typeface = item.getTextTypeface();
-        if (typeface!=null){
+        if (typeface != null) {
             textView.setTypeface(typeface);
         }
 
@@ -122,9 +123,10 @@ public class SwipeMenuView extends LinearLayout implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if (mItemClickListener!=null&&mSwipeSwitch.isMenuOpen()){
+        if (mItemClickListener != null && mSwipeSwitch.isMenuOpen()) {
             SwipeMenuBridge menuBridge = (SwipeMenuBridge) v.getTag();
             menuBridge.mAdapterPosition = mAdatterViewHolder.getAdapterPosition();
+
             mItemClickListener.onItemClick(menuBridge);
         }
     }

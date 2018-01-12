@@ -1,5 +1,6 @@
 package com.muhaitain.commonlibraty.recycleview.widget;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.OverScroller;
 
@@ -8,12 +9,16 @@ import android.widget.OverScroller;
  */
 
 public class SwipeLeftHorizontal extends SwipeHorizontal {
+    private static final String TAG = SwipeLeftHorizontal.class.getSimpleName();
+
     public SwipeLeftHorizontal(View menuView) {
         super(SwipeMenuRecyclerView.LEFT_DIRECTION, menuView);
     }
 
     @Override
     public boolean isMenuOpen(int scrollX) {
+        Log.d(TAG, "isMenuOpen: getMenuView().getWidth()="+getMenuView().getWidth());
+        Log.d(TAG, "isMenuOpen: scrollX="+scrollX);
         int i = -getMenuView().getWidth() * getDirection();
         return scrollX <= i && i != 0;
     }
@@ -25,11 +30,12 @@ public class SwipeLeftHorizontal extends SwipeHorizontal {
 
     @Override
     public void autoOpenMenu(OverScroller scroller, int scrollX, int duration) {
-        scroller.startScroll(-Math.abs(scrollX), 0, getMenuView().getWidth() - Math.abs(scrollX), 0, duration);
+        scroller.startScroll(Math.abs(scrollX), 0, getMenuView().getWidth() - Math.abs(scrollX), 0, duration);
     }
 
     @Override
     public void autoCloseMenu(OverScroller scroller, int scrollX, int duration) {
+        Log.d(TAG, "autoCloseMenu: scrollX=" + scrollX);
         scroller.startScroll(-Math.abs(scrollX), 0, Math.abs(scrollX), 0, duration);
     }
 
